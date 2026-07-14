@@ -20,7 +20,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const binary = $binary ?? {};\nconst files = Object.entries(binary).map(([field, file]) => ({\n  field,\n  fileName: file.fileName ?? '',\n  mimeType: file.mimeType ?? '',\n  fileSize: file.fileSize ?? file.fileSizeInBytes ?? ''\n}));\n\nreturn [{\n  json: {\n    receivedAt: new Date().toISOString(),\n    totalFiles: files.length,\n    files\n  }\n}];"
+        "jsCode": "const binary = $binary ?? {};\n\n// Convert every binary field received by the webhook into simple metadata.\nconst files = Object.entries(binary).map(([field, file]) => ({\n  field,\n  fileName: file.fileName ?? '',\n  mimeType: file.mimeType ?? '',\n  fileSize: file.fileSize ?? file.fileSizeInBytes ?? ''\n}));\n\n// Return a compact JSON response that confirms reception in n8n.\nreturn [{\n  json: {\n    receivedAt: new Date().toISOString(),\n    totalFiles: files.length,\n    files\n  }\n}];"
       },
       "id": "PrepararRespuesta",
       "name": "Preparar respuesta",
