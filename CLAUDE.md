@@ -21,3 +21,25 @@ Un "equipo" de IAs que se pasa el trabajo y se reparte los problemas:
 - Nunca guardar contraseñas, tokens ni claves en el Cerebro ni en este repo.
 - MGS y Electronic son proyectos separados.
 - Toda IA de un workflow necesita un respaldo con onError, para que si falla una siga la otra.
+
+## Equipo de agentes (tabla `cerebro_agentes`)
+| Etapa | Agente | Dónde |
+|---|---|---|
+| 0 Recursos | Gestor de cuentas, IAs y conexiones | Agente n8n "Centro de cuentas" (borrador) |
+| 1 Entrar | Receptor | wf 14 Entrada universal · 10/12/13 Ingesta |
+| 2 Ordenar | Consolidador + Resolutor de dudas | wf 50 (cada 3 h) |
+| 3 Decidir | Secretario / Panel de Paulo | wf 52 `GET /webhook/panel?k=…` |
+| 4 Mejorar | Cazador y Optimizador | wf 51 (diario 3:17) |
+| 5 Corregir | Resolutor de errores | Agente n8n Resolutor + wf 98/99 |
+
+## Reglas nuevas
+- Cero tokens primero: SQL/hash deduplica (`cerebro_ingresar_item`), la IA solo ve lo nuevo y parecido, en lote.
+- Modelos: Gemini con créditos n8n (gratis, solo en nodos de workflow) → respaldo Claude. No usar OpenAI de n8n.
+- Aprobaciones que aprenden (`cerebro_aprobaciones`): la 1ra vez decide Paulo; con "siempre" el patrón queda automático.
+- Contradicciones: se guardan las dos; la no elegida queda como alternativa.
+- Antes de preguntar o pedir credencial: buscar en `cerebro_items`, `cerebro_cuentas` y credenciales n8n.
+- Tareas para Paulo en `cerebro_tareas_paulo`, siempre con link directo.
+- Chats repetidos (pegados o reexportados) se detectan solos por huella y similitud (`cerebro_chats`).
+- No un workflow por acción: sumar a uno existente; un solo camino para texto y foto.
+- Meta AI entra solo vía WhatsApp Importaciones con "Cerebrooo".
+- n8n local → nube: `POST /webhook/entrada`. Nube → local: el local consulta `GET /webhook/bandeja` (sin túnel).
