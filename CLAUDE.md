@@ -16,6 +16,7 @@ Un "equipo" de IAs que se pasa el trabajo y se reparte los problemas:
 - 11 Puente central (cuentas e IAs) · 40 Clasificador de gestión · 25 Informes de rutinas.
 - Agente "Resolutor · Electronic Home": tablas resolutor_aprendizajes e informes_rutinas, revisión diaria a las 07:10.
 - 99 Alertas de error → cerebro_errores + WhatsApp.
+- Lista completa y estado al día: `INVENTARIO-N8N.md` (actualizarlo en cada integración a main).
 
 ## Reglas
 - Nunca guardar contraseñas, tokens ni claves en el Cerebro ni en este repo.
