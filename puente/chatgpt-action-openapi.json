@@ -1,0 +1,29 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Puente Central Electronic", "version": "1.0.0", "description": "Manda pedidos al n8n de Paulo: Claude, ChatGPT, Drive y Cerebro." },
+  "servers": [{ "url": "https://electronic.app.n8n.cloud" }],
+  "paths": {
+    "/webhook/puente": {
+      "post": {
+        "operationId": "pedirAlPuente",
+        "summary": "Enviar un pedido al puente (claude, chatgpt, drive, cerebro)",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": {
+            "type": "object",
+            "required": ["puente"],
+            "properties": {
+              "puente": { "type": "string", "enum": ["claude", "chatgpt", "drive", "cerebro"], "description": "A dónde va el pedido" },
+              "prompt": { "type": "string", "description": "Texto para claude/chatgpt" },
+              "buscar": { "type": "string", "description": "Nombre a buscar en Drive" },
+              "cuenta": { "type": "string", "description": "pausobri o electronicazcarate (solo drive)" }
+            }
+          } } }
+        },
+        "responses": { "200": { "description": "Resultado con su origen" } }
+      }
+    }
+  },
+  "components": { "securitySchemes": { "clave": { "type": "apiKey", "in": "header", "name": "x-clave-puente" } } },
+  "security": [{ "clave": [] }]
+}
